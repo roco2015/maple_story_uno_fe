@@ -20,9 +20,9 @@ export default class TestWS extends Vue {
     this.socket.onopen = () => {
       console.log('socket连接成功');
     };
-    this.socket.onmessage = (msg: any) => {
+    this.socket.onmessage = ({ data }) => {
       console.log('------收到消息啦--------');
-      console.log(msg);
+      console.log(data);
     };
   }
   send() {
