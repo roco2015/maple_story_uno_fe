@@ -1,7 +1,10 @@
 import { Component, Vue } from 'vue-property-decorator';
+import MsgFactory from '@/utils/MessageFactory';
 @Component
 export default class WS extends Vue {
   socket: WebSocket | null = null;
+  status = 0;
+
   createConn() {
     this.socket = new WebSocket('ws://localhost:3002');
   }
@@ -9,54 +12,32 @@ export default class WS extends Vue {
     if (!this.socket) return;
     this.socket.onopen = () => {
       console.log('socket连接成功');
+      this.status = 1;
     };
   }
 
-  onmessage(ws: any) {
-    console.log('------收到消息啦--------');
-    console.log(ws.data);
+  // 发
+  sendUserInfoMessage(username: string) {
+    if (!this.socket) return;
+    this.send(MsgFactory.getUserInfoMessage(username));
   }
 
   sendRoomMessage(roomId: string) {
     if (!this.socket) return;
-    this.socket.send(this.stringfyMsg(this.getEnterRoomMessage(roomId)));
+    this.send(MsgFactory.getEnterRoomMessage(roomId));
   }
 
   sendTextMessage(text: string) {
     if (!this.socket) return;
-    this.socket.send(this.stringfyMsg(this.getTextMessage(text)));
+    this.send(MsgFactory.getTextMessage(text));
   }
 
-  resolveMsgContent(msgstr: string) {
-    const msg = this.resolveMsg(msgstr);
-    return msg.body;
+  send(msg: object) {
+    if (!this.socket) return;
+    this.socket.send(JSON.stringify(msg));
   }
 
   resolveMsg(msgstr: string) {
     return JSON.parse(msgstr);
-  }
-
-  stringfyMsg(msg: object) {
-    return JSON.stringify(msg);
-  }
-
-  getTextMessage(text: string) {
-    return {
-      code: 0,
-      type: 10005,
-      body: {
-        text
-      }
-    };
-  }
-
-  getEnterRoomMessage(roomId: string) {
-    return {
-      code: 0,
-      type: 10002,
-      body: {
-        roomId
-      }
-    };
   }
 }
