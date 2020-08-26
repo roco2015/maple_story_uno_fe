@@ -1,0 +1,28 @@
+@charset "utf-8";
+a, b, body, button, dd, div, dl, em, footer, form, h1, h2, h3, h4, h5, h6, i, input, label, li, nav, p, select, span, textarea, u, ul {
+    padding: 0;
+    margin: 0; /*-webkit-box-sizing: border-box; */
+    -webkit-tap-highlight-color: transparent;
+}
+body {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    background: lightgoldenrodyellow;
+}
+li, ol, ul {
+    list-style: none;
+}
+img {
+    border: none;
+}
+
+a {
+    color: #2c3e50;
+    text-decoration: none;
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+}

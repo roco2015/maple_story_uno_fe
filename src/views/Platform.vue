@@ -1,17 +1,13 @@
 <template>
   <div>
-    <div v-if="!socket">
-      <input v-model="username" />
-      <button @click="login">login</button>
-    </div>
-    <div v-if="socket">
+    <div v-if="status">
       <input v-model="roomId" />
       <button @click="enterRoom">enterRoom</button>
     </div>
     <div>
       <p v-for="msg of messageList" :key="msg.id">{{ msg.from.name }}: {{ msg.body.text }}</p>
     </div>
-    <div v-if="socket">
+    <div v-if="status">
       <input v-model="text" />
       <button @click="sendText">send</button>
     </div>
@@ -24,11 +20,15 @@ import WS from '@/service/ws';
 
 @Component
 export default class Platform extends Mixins(WS) {
-  socket: WebSocket | null = null;
   text = '';
   username = '';
   roomId = '0';
   messageList: string[] = [];
+
+  created() {
+    this.username = String(this.$route.query.username);
+    this.login();
+  }
 
   login() {
     this.createConn();

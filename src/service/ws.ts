@@ -2,7 +2,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import MsgFactory from '@/utils/MessageFactory';
 @Component
 export default class WS extends Vue {
-  socket: WebSocket | null = null;
+  socket?: WebSocket;
   status = 0;
 
   createConn() {

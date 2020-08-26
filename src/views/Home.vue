@@ -1,15 +1,15 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
+    <input v-model="username" />
+    <router-link to="/login" :query="{ username: username }">登录</router-link>
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue';
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 
-export default {
-  name: 'Home',
-  components: {}
-};
+@Component
+export default class Home extends Vue {
+  username = '';
+}
 </script>
