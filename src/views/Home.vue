@@ -13,3 +13,5 @@ export default class Home extends Vue {
   username = '';
 }
 </script>
+
+<style lang="less" scoped></style>
