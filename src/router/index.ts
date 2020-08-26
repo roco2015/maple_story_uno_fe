@@ -19,9 +19,9 @@ const routes: Array<RouteConfig> = [
     component: () => import(/* webpackChunkName: 'about' */ '../views/About.vue')
   },
   {
-    path: '/ws',
-    name: 'WS',
-    component: () => import(/* webpackChunkName: 'TestWS' */ '../views/TestWS.vue')
+    path: '/platform',
+    name: 'platform',
+    component: () => import(/* webpackChunkName: 'Platform' */ '../views/Platform.vue')
   }
 ];
 
