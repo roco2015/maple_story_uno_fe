@@ -1,5 +1,5 @@
-export default {
-  getTextMessage: (text: string) => {
+export class MessageFactory {
+  static readonly getTextMsg = (text: string) => {
     return {
       code: 0,
       type: 10005,
@@ -7,9 +7,8 @@ export default {
         text
       }
     };
-  },
-
-  getEnterRoomMessage: (roomId: string) => {
+  };
+  static readonly getEnterRoomMsg = (roomId: string) => {
     return {
       code: 0,
       type: 10002,
@@ -17,9 +16,8 @@ export default {
         roomId
       }
     };
-  },
-
-  getUserInfoMessage: (name: string) => {
+  };
+  static readonly getUserInfoMsg = (name: string) => {
     return {
       code: 0,
       type: 10001,
@@ -27,5 +25,10 @@ export default {
         name
       }
     };
-  }
-};
+  };
+  static readonly getRefreshRoomMsg = {
+    code: 0,
+    type: 10006,
+    body: {}
+  };
+}

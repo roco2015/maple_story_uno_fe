@@ -1,13 +1,19 @@
 <template>
   <div>
-    <div v-if="status">
-      <input v-model="roomId" />
-      <button @click="enterRoom">enterRoom</button>
+    <div v-show="socketStatus">
+      <button @click="refresh">刷新房间信息</button>
+      <div class="room-box">
+        <div v-for="roomId of roomIds" :key="roomId" class="room" @click="enterRoom(roomId)">{{ roomId }}</div>
+      </div>
+      <div class="new-room">
+        <input v-model="roomId" />
+        <button @click="enterRoom(roomId)">新建房间</button>
+      </div>
     </div>
     <div>
       <p v-for="msg of messageList" :key="msg.id">{{ msg.from.name }}: {{ msg.body.text }}</p>
     </div>
-    <div v-if="status">
+    <div v-show="socketStatus">
       <input v-model="text" />
       <button @click="sendText">send</button>
     </div>
@@ -15,50 +21,50 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Watch } from 'vue-property-decorator';
-import WS from '@/service/ws';
+import { Component, Vue } from 'vue-property-decorator';
+import { MessageFactory } from '@/utils/MessageFactory';
 
 @Component
-export default class Platform extends Mixins(WS) {
+export default class Platform extends Vue {
   text = '';
   username = '';
   roomId = '0';
-  messageList: string[] = [];
-
-  created() {
-    this.username = String(this.$route.query.username);
-    this.login();
+  get socketStatus() {
+    return this.$store.state.socketStatus;
+  }
+  get roomIds() {
+    return this.$store.state.roomIds;
+  }
+  get messageList() {
+    return this.$store.state.messageList;
   }
 
-  login() {
-    this.createConn();
-    this.onopen();
-    this.onmessage();
+  mounted() {
+    this.refresh();
   }
 
-  @Watch('status')
-  sendUserInfo(val: number) {
-    if (val) {
-      this.sendUserInfoMessage(this.username);
-    }
+  refresh() {
+    this.$store.dispatch('send', MessageFactory.getRefreshRoomMsg);
   }
 
-  onmessage() {
-    if (!this.socket) return;
-    this.socket.onmessage = ({ data }) => {
-      this.messageList.push(this.resolveMsg(data));
-    };
-  }
-
-  enterRoom() {
-    this.sendRoomMessage(this.roomId);
+  enterRoom(roomId: string) {
+    this.roomId = roomId;
+    this.$store.dispatch('send', MessageFactory.getEnterRoomMsg(roomId));
   }
 
   sendText() {
-    this.sendTextMessage(this.text);
+    this.$store.dispatch('sendTextMessage', this.text);
     this.text = '';
   }
 }
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+.room {
+  width: 30px;
+  height: 45px;
+  border: 1px solid #aaa;
+  line-height: 45px;
+  text-align: center;
+}
+</style>
