@@ -840,7 +840,7 @@
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.11.0", "@babel/runtime@^7.3.4", "@babel/runtime@^7.8.4":
+"@babel/runtime@7.x", "@babel/runtime@^7.0.0", "@babel/runtime@^7.11.0", "@babel/runtime@^7.3.4", "@babel/runtime@^7.8.4":
   version "7.11.2"
   resolved "https://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.11.2.tgz?cache=0&sync_timestamp=1596637803941&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fruntime%2Fdownload%2F%40babel%2Fruntime-7.11.2.tgz#f549c13c754cc40b87644b9fa9f09a6a95fe0736"
   integrity sha1-9UnBPHVMxAuHZEufqfCaapX+BzY=
@@ -1466,6 +1466,11 @@
     lodash "^4.17.15"
     semver "^7.3.2"
     tsutils "^3.17.1"
+
+"@vant/icons@1.2.5":
+  version "1.2.5"
+  resolved "https://registry.npm.taobao.org/@vant/icons/download/@vant/icons-1.2.5.tgz#f3db43c4b300300829e3c4e909beaa33d1cbe786"
+  integrity sha1-89tDxLMAMAgp48TpCb6qM9HL54Y=
 
 "@vue/babel-helper-vue-jsx-merge-props@^1.0.0":
   version "1.0.0"
@@ -10564,6 +10569,13 @@ tryer@^1.0.1:
   resolved "https://registry.npm.taobao.org/tryer/download/tryer-1.0.1.tgz#f2c85406800b9b0f74c9f7465b81eaad241252f8"
   integrity sha1-8shUBoALmw90yfdGW4HqrSQSUvg=
 
+ts-import-plugin@^1.6.6:
+  version "1.6.6"
+  resolved "https://registry.npm.taobao.org/ts-import-plugin/download/ts-import-plugin-1.6.6.tgz#d348f0e16bca7ffef74cc582cee10ad0e73204bf"
+  integrity sha1-00jw4WvKf/73TMWCzuEK0OcyBL8=
+  dependencies:
+    tslib "^1.11.1"
+
 ts-jest@^24.2.0:
   version "24.3.0"
   resolved "https://registry.npm.taobao.org/ts-jest/download/ts-jest-24.3.0.tgz?cache=0&sync_timestamp=1597139866377&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fts-jest%2Fdownload%2Fts-jest-24.3.0.tgz#b97814e3eab359ea840a1ac112deae68aa440869"
@@ -10606,7 +10618,7 @@ tsconfig@^7.0.0:
     strip-bom "^3.0.0"
     strip-json-comments "^2.0.0"
 
-tslib@^1.10.0, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
+tslib@^1.10.0, tslib@^1.11.1, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.13.0"
   resolved "https://registry.npm.taobao.org/tslib/download/tslib-1.13.0.tgz?cache=0&sync_timestamp=1596751904317&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftslib%2Fdownload%2Ftslib-1.13.0.tgz#c881e13cc7015894ed914862d276436fa9a47043"
   integrity sha1-yIHhPMcBWJTtkUhi0nZDb6mkcEM=
@@ -10933,6 +10945,16 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
+vant@^2.10.3:
+  version "2.10.3"
+  resolved "https://registry.npm.taobao.org/vant/download/vant-2.10.3.tgz#f8b7a32a91f5ee680454ac115b5be4683fd203d1"
+  integrity sha1-+LejKpH17mgEVKwRW1vkaD/SA9E=
+  dependencies:
+    "@babel/runtime" "7.x"
+    "@vant/icons" "1.2.5"
+    "@vue/babel-helper-vue-jsx-merge-props" "^1.0.0"
+    vue-lazyload "1.2.3"
+
 vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.npm.taobao.org/vary/download/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
@@ -11000,6 +11022,11 @@ vue-jest@^3.0.5:
     source-map "^0.5.6"
     tsconfig "^7.0.0"
     vue-template-es2015-compiler "^1.6.0"
+
+vue-lazyload@1.2.3:
+  version "1.2.3"
+  resolved "https://registry.npm.taobao.org/vue-lazyload/download/vue-lazyload-1.2.3.tgz#901f9ec15c7e6ca78781a2bae4a343686bdedb2c"
+  integrity sha1-kB+ewVx+bKeHgaK65KNDaGve2yw=
 
 "vue-loader-v16@npm:vue-loader@^16.0.0-beta.3":
   version "16.0.0-beta.5"

@@ -3,3 +3,4 @@ config/**
 public/**
 scripts/**
 dist/**
+vue.config.js
