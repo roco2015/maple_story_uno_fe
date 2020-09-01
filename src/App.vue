@@ -13,5 +13,6 @@ export default class App extends Vue {}
 
 <style lang="less">
 #app {
+  color: @gray-8;
 }
 </style>

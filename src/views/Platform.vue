@@ -1,21 +1,37 @@
 <template>
-  <div>
-    <div v-show="socketStatus">
-      <button @click="refresh">刷新房间信息</button>
-      <div class="room-box">
-        <div v-for="roomId of roomIds" :key="roomId" class="room" @click="enterRoom(roomId)">{{ roomId }}</div>
+  <div class="platform">
+    <div v-show="socketStatus" class="room-box">
+      <van-button block @click="refresh">刷新全部房间信息</van-button>
+      <div class="row">
+        <span>当前所在房间: {{ curRoomId }}</span>
+        <span style="text-align: right;">房间人数: {{ curUserCount }}</span>
       </div>
-      <div class="new-room">
-        <input v-model="roomId" />
-        <button @click="enterRoom(roomId)">新建房间</button>
+      <van-grid :column-num="5">
+        <van-grid-item
+          v-for="roomId of roomIds"
+          :key="roomId"
+          icon="wap-home-o"
+          :text="`房间号: ${roomId}`"
+          @click="enterRoom(roomId)"
+        />
+      </van-grid>
+      <van-field v-model="roomId" center clearable label="房间号" placeholder="请输入新的房间号">
+        <template #button>
+          <van-button size="small" type="primary" @click="enterRoom(roomId)">加入新房间</van-button>
+        </template>
+      </van-field>
+    </div>
+    <div class="message-box">
+      <div class="message-list">
+        <p v-for="msg of messageList" :key="msg.id">{{ msg.from.name }}: {{ msg.body.text }}</p>
       </div>
-    </div>
-    <div>
-      <p v-for="msg of messageList" :key="msg.id">{{ msg.from.name }}: {{ msg.body.text }}</p>
-    </div>
-    <div v-show="socketStatus">
-      <input v-model="text" />
-      <button @click="sendText">send</button>
+      <div v-show="socketStatus" class="send-box">
+        <van-field v-model="text" center clearable label="" placeholder="请输入要发送的消息">
+          <template #button>
+            <van-button size="small" type="primary" @click="sendText(text)">send</van-button>
+          </template>
+        </van-field>
+      </div>
     </div>
   </div>
 </template>
@@ -28,7 +44,9 @@ import { MessageFactory } from '@/utils/MessageFactory';
 export default class Platform extends Vue {
   text = '';
   username = '';
-  roomId = '0';
+  curRoomId = '';
+  roomId = '';
+  curUserCount = 0;
   get socketStatus() {
     return this.$store.state.socketStatus;
   }
@@ -48,7 +66,7 @@ export default class Platform extends Vue {
   }
 
   enterRoom(roomId: string) {
-    this.roomId = roomId;
+    this.roomId = '';
     this.$store.dispatch('send', MessageFactory.getEnterRoomMsg(roomId));
   }
 
@@ -60,11 +78,36 @@ export default class Platform extends Vue {
 </script>
 
 <style lang="less">
+.platform {
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
+  .message-box {
+    flex: 1;
+    position: relative;
+    .message-list {
+      padding: 10px;
+    }
+    .send-box {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+  }
+}
 .room {
   width: 30px;
   height: 45px;
   border: 1px solid #aaa;
   line-height: 45px;
   text-align: center;
+}
+.row {
+  display: flex;
+  padding: 10px;
+  span {
+    flex: 1;
+  }
 }
 </style>
