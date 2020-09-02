@@ -2,10 +2,6 @@
   <div class="platform">
     <div v-show="socketStatus" class="room-box">
       <van-button block @click="refresh">刷新全部房间信息</van-button>
-      <div class="row">
-        <span>当前所在房间: {{ curRoomId }}</span>
-        <span style="text-align: right;">房间人数: {{ curUserCount }}</span>
-      </div>
       <van-grid :column-num="5">
         <van-grid-item
           v-for="roomId of roomIds"
@@ -20,6 +16,10 @@
           <van-button size="small" type="primary" @click="enterRoom(roomId)">加入新房间</van-button>
         </template>
       </van-field>
+      <div class="row">
+        <span>当前所在房间: {{ curRoomId }}</span>
+        <span style="text-align: right;">房间人数: {{ curUserCount }}</span>
+      </div>
     </div>
     <div class="message-box">
       <div class="message-list">
@@ -44,9 +44,7 @@ import { MessageFactory } from '@/utils/MessageFactory';
 export default class Platform extends Vue {
   text = '';
   username = '';
-  curRoomId = '';
   roomId = '';
-  curUserCount = 0;
   get socketStatus() {
     return this.$store.state.socketStatus;
   }
@@ -55,6 +53,13 @@ export default class Platform extends Vue {
   }
   get messageList() {
     return this.$store.state.messageList;
+  }
+  get curRoomId() {
+    return this.$store.state.curRoom.id;
+  }
+
+  get curUserCount() {
+    return this.$store.state.curRoom.userCount;
   }
 
   mounted() {

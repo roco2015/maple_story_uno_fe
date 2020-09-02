@@ -31,4 +31,14 @@ export class MessageFactory {
     type: 10006,
     body: {}
   };
+
+  static readonly getReconnectMsg = (roomId: string) => {
+    return {
+      code: 0,
+      type: 10010,
+      body: {
+        roomId
+      }
+    };
+  };
 }
