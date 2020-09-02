@@ -75,6 +75,18 @@ export default new Vuex.Store({
             case 10009:
               Vue.prototype.$notify({ type: 'primary', message: `${msg.body.username}加入了房间` });
               break;
+            case 10012:
+              // 其他玩家准备
+              Vue.prototype.$notify({ type: 'success', message: msg.body.text });
+              break;
+            case 10013:
+              // 其他玩家取消准备
+              Vue.prototype.$notify({ type: 'warning', message: msg.body.text });
+              break;
+            case 10014:
+              // 全部玩家准备
+              Vue.prototype.$notify({ type: 'success', message: msg.body.text });
+              break;
           }
         };
         state.socket.onopen = () => {

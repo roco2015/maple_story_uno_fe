@@ -17,8 +17,13 @@
         </template>
       </van-field>
       <div class="row">
-        <span>当前所在房间: {{ curRoomId }}</span>
-        <span style="text-align: right;">房间人数: {{ curUserCount }}</span>
+        <div class="block">当前所在房间: {{ curRoomId }}</div>
+        <div class="block" style="text-align: center;">房间人数: {{ curUserCount }}</div>
+        <div class="block" style="text-align: right;">
+          <van-button size="small" type="primary" :loading="readyLoading" @click="ready">
+            {{ readyStatusDisplay }}
+          </van-button>
+        </div>
       </div>
     </div>
     <div class="message-box">
@@ -45,6 +50,8 @@ export default class Platform extends Vue {
   text = '';
   username = '';
   roomId = '';
+  readyStatus = 0;
+  readyLoading = false;
   get socketStatus() {
     return this.$store.state.socketStatus;
   }
@@ -62,6 +69,10 @@ export default class Platform extends Vue {
     return this.$store.state.curRoom.userCount;
   }
 
+  get readyStatusDisplay() {
+    return this.readyStatus ? '取消准备' : '准备';
+  }
+
   mounted() {
     this.refresh();
   }
@@ -73,6 +84,20 @@ export default class Platform extends Vue {
   enterRoom(roomId: string) {
     this.roomId = '';
     this.$store.dispatch('send', MessageFactory.getEnterRoomMsg(roomId));
+  }
+
+  ready() {
+    this.readyLoading = true;
+    if (this.readyStatus) {
+      this.readyStatus = 0;
+      this.$store.dispatch('send', MessageFactory.getCancelReadyMsg);
+    } else {
+      this.readyStatus = 1;
+      this.$store.dispatch('send', MessageFactory.getReadyMsg);
+    }
+    setTimeout(() => {
+      this.readyLoading = false;
+    }, 500);
   }
 
   sendText() {
@@ -110,8 +135,9 @@ export default class Platform extends Vue {
 }
 .row {
   display: flex;
+  align-items: center;
   padding: 10px;
-  span {
+  .block {
     flex: 1;
   }
 }

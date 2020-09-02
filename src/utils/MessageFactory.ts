@@ -41,4 +41,16 @@ export class MessageFactory {
       }
     };
   };
+
+  static readonly getReadyMsg = {
+    code: 0,
+    type: 10011,
+    body: {}
+  };
+
+  static readonly getCancelReadyMsg = {
+    code: 0,
+    type: 10012,
+    body: {}
+  };
 }
